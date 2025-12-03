@@ -1,0 +1,75 @@
+{
+	"name": "pr-ojoxux",
+	"type": "module",
+	"version": "0.0.1",
+	"private": true,
+	"packageManager": "pnpm@10.22.0",
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "nr build && wrangler dev",
+		"deploy": "nr build && wrangler deploy",
+		"deploy:non-production": "nr build && wrangler versions upload",
+		"sync": "nr /^sync:/",
+		"sync:svelte": "svelte-kit sync",
+		"sync:wrangler": "nr cf-types",
+		"check": "nr sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "nr sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"lint": "eslint --cache .",
+		"format": "nr lint --fix",
+		"preinstall": "npx only-allow pnpm",
+		"cf-types": "wrangler types ./src/worker-configuration.d.ts",
+		"prepare": "nr /^prepare:/",
+		"prepare:git": "simple-git-hooks",
+		"prepare:types": "nr cf-types"
+	},
+	"devDependencies": {
+		"@antfu/ni": "^25.0.0",
+		"@iconify-json/line-md": "^1.2.11",
+		"@iconify-json/ph": "^1.2.2",
+		"@ryoppippi/eslint-config": "^0.3.7",
+		"@sveltejs/adapter-cloudflare": "^7.2.2",
+		"@sveltejs/kit": "^2.48.5",
+		"@sveltejs/vite-plugin-svelte": "5.1.1",
+		"@types/dom-view-transitions": "^1.0.6",
+		"@types/node": "^24.3.0",
+		"@unocss/extractor-svelte": "^66.4.2",
+		"@unocss/reset": "^66.4.2",
+		"@vueuse/core": "^13.7.0",
+		"eslint": "^9.34.0",
+		"eslint-plugin-format": "^1.0.1",
+		"eslint-plugin-svelte": "^3.11.0",
+		"feed": "^5.1.0",
+		"lint-staged": "^16.1.5",
+		"minimatch": "^10.0.3",
+		"octokit": "^5.0.3",
+		"simple-git-hooks": "^2.13.1",
+		"std-env": "^3.9.0",
+		"svelte": "^5.43.8",
+		"svelte-check": "^4.3.1",
+		"svelte-fancy-darkmode": "^1.1.4",
+		"svelte-meta-tags": "^4.4.0",
+		"typescript": "^5.9.2",
+		"typescript-svelte-plugin": "^0.3.50",
+		"unocss": "^66.4.2",
+		"unplugin-icons": "^22.2.0",
+		"vite": "^7.1.3",
+		"vite-plugin-kit-routes": "^1.0.2",
+		"wrangler": "^4.32.0"
+	},
+	"simple-git-hooks": {
+		"pre-commit": "pnpm lint-staged"
+	},
+	"lint-staged": {
+		"*": [
+			"eslint --cache --fix"
+		]
+	},
+	"devEngines": {
+		"runtime": {
+			"name": "node",
+			"version": "^24.5.0",
+			"onFail": "download"
+		}
+	}
+}
